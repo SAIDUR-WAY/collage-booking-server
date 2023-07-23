@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -38,6 +38,14 @@ async function run() {
     app.get('/collages', async (req, res) => {
         result = await collageCollection.find().toArray();
         res.send(result)
+    })
+
+    app.get('/collages/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    const query = {_id: new ObjectId(id)}
+    const result = await collageCollection.findOne(query);
+    res.send(result);
     })
 
     // Send a ping to confirm a successful connection
