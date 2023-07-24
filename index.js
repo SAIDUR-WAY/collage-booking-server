@@ -10,8 +10,6 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-//collageBooking
-//zdKgQ4WVi04f4522
 
 
 
@@ -48,6 +46,14 @@ async function run() {
     res.send(result);
     })
 
+    app.get('/research', async (req, res) => {
+      const query = {name: "website"};
+      const result = collageCollection.find().project({college_name: true, research_link: true});
+      // console.log(result)
+      const result2 = await result.toArray();
+      res.send(result2)
+    })
+   
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
