@@ -60,6 +60,14 @@ async function run() {
       const result2 = await result.toArray();
       res.send(result2)
     })
+
+    app.get('/collage', async (req, res) => {
+      const  searchTerm  = req.query.search;
+      const query = {college_name: {$regex: searchTerm, $options: 'i'}};
+      const result = await collageCollection.find(query).toArray();
+      res.send(result)
+
+    })
    
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
