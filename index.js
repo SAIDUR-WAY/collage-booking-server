@@ -53,6 +53,13 @@ async function run() {
       const result2 = await result.toArray();
       res.send(result2)
     })
+    app.get('/reviews', async (req, res) => {
+      const query = {name: "reviews"};
+      const result = collageCollection.find().project({reviews: true});
+      // console.log(result)
+      const result2 = await result.toArray();
+      res.send(result2)
+    })
    
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
